@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Scanner</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background-color: #f4f4f4; }
+        .container { max-width: 600px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        input, button { padding: 10px; margin: 10px 0; width: 100%; }
+        button { background: #007bff; color: white; border: none; cursor: pointer; }
+        button:hover { background: #0056b3; }
+        .result { margin-top: 20px; padding: 10px; border: 1px solid #ddd; background: #f9f9f9; }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Product Scanner</h1>
+        <p>Enter a product barcode or name to scan and get details like price, description, and reviews.</p>
+        <input type="text" id="productInput" placeholder="e.g., 123456789012 or iPhone 14">
+        <button onclick="scanProduct()">Scan Product</button>
+        <div id="result" class="result hidden">
+            <h2>Product Details</h2>
+            <p><strong>Name:</strong> <span id="name"></span></p>
+            <p><strong>Price:</strong> $<span id="price"></span></p>
+            <p><strong>Description:</strong> <span id="description"></span></p>
+            <p><strong>Reviews:</strong> <span id="reviews"></span></p>
+            <p><strong>Availability:</strong> <span id="availability"></span></p>
+        </div>
+    </div>
+
+    <script>
+        // Mock data for demonstration (replace with real API calls)
+        const productData = {
+            "123456789012": {
+                name: "Sample Smartphone",
+                price: "299.99",
+                description: "A high-quality smartphone with great camera and battery life.",
+                reviews: "4.5/5 stars - Great value for money!",
+                availability: "In stock"
+            },
+            "iphone 14": {
+                name: "iPhone 14",
+                price: "799.99",
+                description: "Latest Apple iPhone with advanced features.",
+                reviews: "4.7/5 stars - Amazing performance!",
+                availability: "Limited stock"
+            }
+        };
+
+        function scanProduct() {
+            const input = document.getElementById('productInput').value.toLowerCase().trim();
+            const resultDiv = document.getElementById('result');
+            
+            if (productData[input]) {
+                const data = productData[input];
+                document.getElementById('name').textContent = data.name;
+                document.getElementById('price').textContent = data.price;
+                document.getElementById('description').textContent = data.description;
+                document.getElementById('reviews').textContent = data.reviews;
+                document.getElementById('availability').textContent = data.availability;
+                resultDiv.classList.remove('hidden');
+            } else {
+                alert("Product not found. Try a valid barcode or name like '123456789012' or 'iPhone 14'.");
+                resultDiv.classList.add('hidden');
+            }
+        }
+    </script>
+</body>
+</html>
